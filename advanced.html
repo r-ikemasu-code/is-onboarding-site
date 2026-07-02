@@ -313,11 +313,20 @@ let answered = false;
 let results = [];
 
 function startQuiz() {
-  // シャッフル
+  // 問題順シャッフル
   for (let i = questions.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [questions[i], questions[j]] = [questions[j], questions[i]];
   }
+  // 選択肢シャッフル
+  questions.forEach(q => {
+    const correctOpt = q.opts[q.ans];
+    for (let i = q.opts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [q.opts[i], q.opts[j]] = [q.opts[j], q.opts[i]];
+    }
+    q.ans = q.opts.indexOf(correctOpt);
+  });
   currentQ = 0; score = 0; results = [];
   document.getElementById('start').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
