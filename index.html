@@ -7,19 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #005b64;
-  --primary-light: #00838f;
-  --accent: #f9a825;
   --bg: #f4f6fb;
   --card: #fff;
   --text: #1a1a2e;
   --text-light: #666;
   --border: #e0e4ee;
-  --green: #10b981;
-  --green-bg: #ecfdf5;
-  --red: #ef4444;
-  --red-bg: #fef2f2;
-  --blue-bg: #eff6ff;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -27,410 +19,164 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
+  min-height: 100vh;
 }
 
-/* ===== ヘッダー ===== */
 .header {
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  background: linear-gradient(135deg, #005b64, #00838f);
   color: #fff;
-  padding: 36px 24px;
+  padding: 48px 24px;
   text-align: center;
 }
-.header h1 { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
-.header p { font-size: 13px; opacity: 0.8; margin-top: 6px; }
+.header h1 { font-size: 28px; font-weight: 900; letter-spacing: 1px; }
+.header p { font-size: 14px; opacity: 0.8; margin-top: 8px; }
 
-/* ===== コンテナ ===== */
-.container { max-width: 740px; margin: 0 auto; padding: 24px 16px 60px; }
-
-/* ===== スタート画面 ===== */
-.start-screen { text-align: center; padding: 40px 0; }
-.start-screen h2 { font-size: 20px; margin-bottom: 12px; }
-.start-screen p { color: var(--text-light); font-size: 14px; margin-bottom: 8px; }
-.start-screen .sections {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  justify-content: center; margin: 20px 0 28px;
-}
-.start-screen .section-tag {
-  background: var(--blue-bg); color: var(--primary);
-  font-size: 12px; font-weight: 700;
-  padding: 4px 14px; border-radius: 99px;
+.container {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 40px 16px 60px;
 }
 
-/* ===== ボタン ===== */
-.btn {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  color: #fff;
-  font-size: 16px; font-weight: 700;
-  padding: 14px 48px;
-  border: none; border-radius: 12px;
-  cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 16px rgba(0,91,100,0.25);
-}
-.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,91,100,0.3); }
-.btn:active { transform: translateY(0); }
-.btn.secondary {
-  background: #fff; color: var(--primary);
-  border: 2px solid var(--primary);
-  box-shadow: none;
-}
-.btn.secondary:hover { background: var(--blue-bg); }
-
-/* ===== プログレスバー ===== */
-.progress-bar {
-  background: var(--border);
-  border-radius: 99px;
-  height: 8px;
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  border-radius: 99px;
-  transition: width 0.4s ease;
-}
-.progress-text {
-  font-size: 12px; color: var(--text-light);
-  margin-bottom: 6px; font-weight: 600;
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* ===== 問題カード ===== */
-.question-card {
+.quiz-card {
   background: var(--card);
   border-radius: 16px;
-  padding: 28px;
+  padding: 32px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  animation: fadeIn 0.3s ease;
+  text-decoration: none;
+  color: var(--text);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: block;
+  border-left: 6px solid transparent;
 }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-.q-category {
-  font-size: 11px; font-weight: 700;
-  color: var(--primary); background: var(--blue-bg);
-  padding: 3px 12px; border-radius: 6px;
-  display: inline-block; margin-bottom: 12px;
+.quiz-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
 }
-.q-number { font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
-.q-text { font-size: 17px; font-weight: 700; margin-bottom: 20px; line-height: 1.6; }
 
-/* ===== 選択肢 ===== */
-.options { display: flex; flex-direction: column; gap: 10px; }
-.option {
-  padding: 14px 18px;
-  border: 2px solid var(--border);
+.quiz-card.basic { border-left-color: #005b64; }
+.quiz-card.advanced { border-left-color: #ea580c; }
+
+.quiz-card .card-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.quiz-card.basic .card-badge { background: #e0f7fa; color: #005b64; }
+.quiz-card.advanced .card-badge { background: #fff7ed; color: #c2410c; }
+
+.quiz-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.quiz-card .card-desc { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+
+.quiz-card .tags {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+}
+.quiz-card .tag {
+  font-size: 11px; font-weight: 600;
+  padding: 2px 10px; border-radius: 99px;
+}
+.quiz-card.basic .tag { background: #e0f7fa; color: #005b64; }
+.quiz-card.advanced .tag { background: #fff7ed; color: #c2410c; }
+
+.quiz-card .card-meta {
+  display: flex; gap: 16px;
+  font-size: 13px; color: var(--text-light);
+}
+
+.quiz-card .arrow {
+  display: flex; align-items: center; justify-content: flex-end;
+  font-size: 14px; font-weight: 700; margin-top: 12px;
+}
+.quiz-card.basic .arrow { color: #005b64; }
+.quiz-card.advanced .arrow { color: #c2410c; }
+
+.info {
+  margin-top: 32px;
+  background: var(--card);
   border-radius: 12px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.15s;
-  display: flex; align-items: center; gap: 12px;
-}
-.option:hover { border-color: var(--primary); background: rgba(0,91,100,0.03); }
-.option .option-label {
-  width: 28px; height: 28px;
-  border-radius: 8px;
-  background: var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: var(--text-light);
-  flex-shrink: 0;
-}
-.option.selected { border-color: var(--primary); background: rgba(0,91,100,0.05); }
-.option.selected .option-label { background: var(--primary); color: #fff; }
-.option.correct { border-color: var(--green); background: var(--green-bg); }
-.option.correct .option-label { background: var(--green); color: #fff; }
-.option.wrong { border-color: var(--red); background: var(--red-bg); }
-.option.wrong .option-label { background: var(--red); color: #fff; }
-.option.disabled { pointer-events: none; }
-
-/* ===== 解説 ===== */
-.explanation {
-  margin-top: 16px;
-  padding: 14px 18px;
-  border-radius: 10px;
+  padding: 20px 24px;
   font-size: 13px;
-  line-height: 1.7;
-  animation: fadeIn 0.3s ease;
-}
-.explanation.correct-exp { background: var(--green-bg); color: #065f46; border-left: 4px solid var(--green); }
-.explanation.wrong-exp { background: var(--red-bg); color: #991b1b; border-left: 4px solid var(--red); }
-
-/* ===== ナビ ===== */
-.nav { display: flex; justify-content: flex-end; margin-top: 20px; }
-
-/* ===== 結果画面 ===== */
-.result-screen { text-align: center; }
-.score-circle {
-  width: 160px; height: 160px;
-  border-radius: 50%;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  margin: 20px auto;
-  font-weight: 900;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-.score-circle .score-num { font-size: 48px; line-height: 1; }
-.score-circle .score-den { font-size: 14px; opacity: 0.7; }
-.score-circle.great { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; }
-.score-circle.good { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
-.score-circle.retry { background: linear-gradient(135deg, #fecaca, #fca5a5); color: #991b1b; }
-
-.result-msg { font-size: 18px; font-weight: 700; margin: 16px 0 8px; }
-.result-sub { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
-
-.category-scores {
-  display: flex; flex-direction: column; gap: 8px;
-  margin: 20px 0 28px; text-align: left;
-}
-.cat-row {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 13px; padding: 8px 14px;
-  background: var(--card); border-radius: 10px;
+  color: var(--text-light);
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-.cat-row .cat-name { flex: 1; font-weight: 600; }
-.cat-row .cat-score { font-weight: 700; }
-.cat-row .cat-bar { width: 100px; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
-.cat-row .cat-fill { height: 100%; border-radius: 99px; }
-
-.wrong-list {
-  text-align: left; margin: 20px 0;
-  background: var(--card); border-radius: 12px;
-  padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-}
-.wrong-list h3 { font-size: 15px; margin-bottom: 12px; color: var(--red); }
-.wrong-item {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
-.wrong-item:last-child { border-bottom: none; }
-.wrong-item .wi-q { font-weight: 700; margin-bottom: 2px; }
-.wrong-item .wi-a { color: var(--green); }
-
-.hidden { display: none !important; }
+.info h3 { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+.info ul { padding-left: 20px; }
+.info li { margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>📝 IS オンボーディング 知識チェック</h1>
-  <p>SaaS基礎 / セールスプロセス / サービス理解 / 市場・競合</p>
+  <p>SaaS用語・営業プロセス・技術知識をテストしよう</p>
 </div>
 
 <div class="container">
-  <!-- ===== スタート ===== -->
-  <div id="start" class="start-screen">
-    <h2>全20問・選択式</h2>
-    <p>用語集とオンボーディング計画の内容から出題します</p>
-    <div class="sections">
-      <span class="section-tag">SaaS KPI</span>
-      <span class="section-tag">解約・定着</span>
-      <span class="section-tag">営業プロセス</span>
-      <span class="section-tag">ツール・システム</span>
-      <span class="section-tag">売上拡大</span>
-      <span class="section-tag">BANT</span>
-      <span class="section-tag">ナレッジマネジメント</span>
-      <span class="section-tag">顧客セグメント</span>
-      <span class="section-tag">競合</span>
-      <span class="section-tag">AI・検索</span>
-    </div>
-    <p style="font-size:13px;color:#999;">目安時間：10〜15分</p>
-    <br>
-    <button class="btn" onclick="startQuiz()">テストを始める</button>
+  <div class="cards">
+
+    <a href="basic.html" class="quiz-card basic">
+      <span class="card-badge">STEP 1</span>
+      <h2>基礎編</h2>
+      <p class="card-desc">SaaSの基本指標・営業プロセス・フレームワークなど、IS業務の土台となる知識をチェック</p>
+      <div class="tags">
+        <span class="tag">SaaS KPI</span>
+        <span class="tag">解約・定着</span>
+        <span class="tag">ビジネスモデル</span>
+        <span class="tag">営業プロセス</span>
+        <span class="tag">ツール</span>
+        <span class="tag">売上拡大</span>
+        <span class="tag">BANT</span>
+        <span class="tag">組織・役割</span>
+        <span class="tag">ナレッジマネジメント</span>
+      </div>
+      <div class="card-meta">
+        <span>📋 全35問</span>
+        <span>⏱ 目安 10〜15分</span>
+      </div>
+      <div class="arrow">テストを始める →</div>
+    </a>
+
+    <a href="advanced.html" class="quiz-card advanced">
+      <span class="card-badge">STEP 2</span>
+      <h2>応用編</h2>
+      <p class="card-desc">競合知識・セキュリティ・製造業用語など、商談で差がつく実践的な知識をチェック</p>
+      <div class="tags">
+        <span class="tag">顧客セグメント</span>
+        <span class="tag">競合</span>
+        <span class="tag">AI・検索</span>
+        <span class="tag">セキュリティ</span>
+        <span class="tag">契約</span>
+        <span class="tag">ITインフラ</span>
+        <span class="tag">製造業</span>
+        <span class="tag">マーケティング</span>
+      </div>
+      <div class="card-meta">
+        <span>📋 全35問</span>
+        <span>⏱ 目安 10〜15分</span>
+      </div>
+      <div class="arrow">テストを始める →</div>
+    </a>
+
   </div>
 
-  <!-- ===== 問題 ===== -->
-  <div id="quiz" class="hidden">
-    <div class="progress-text"><span id="prog-text"></span></div>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-    <div id="q-area"></div>
-    <div class="nav">
-      <button class="btn" id="next-btn" class="hidden" onclick="nextQuestion()">次の問題 →</button>
-    </div>
+  <div class="info">
+    <h3>📌 テストについて</h3>
+    <ul>
+      <li>問題はランダムに出題されます</li>
+      <li>各問題に解説付きで、間違えてもその場で学べます</li>
+      <li>まず<strong>基礎編</strong>から始めて、クリアしたら<strong>応用編</strong>に進むのがおすすめです</li>
+      <li>何度でも繰り返し挑戦できます</li>
+    </ul>
   </div>
-
-  <!-- ===== 結果 ===== -->
-  <div id="result" class="result-screen hidden"></div>
 </div>
-
-<script>
-const questions = [
-  // ===== SaaS KPI =====
-  { cat: "SaaS KPI", q: "MRR とは何の略？", opts: ["Monthly Recurring Revenue", "Monthly Revenue Rate", "Marketing Return Revenue", "Maximum Retention Rate"], ans: 0, exp: "MRR = Monthly Recurring Revenue（月次経常収益）。SaaSの最重要指標で、毎月継続的に発生する売上のこと。" },
-  { cat: "SaaS KPI", q: "ARR の計算方法は？", opts: ["MRR × 12", "MRR × 6", "月間売上 × 365", "年間新規契約数 × 単価"], ans: 0, exp: "ARR = MRR × 12。年次経常収益（Annual Recurring Revenue）で、企業規模の目安になる。" },
-  { cat: "SaaS KPI", q: "NRR（Net Revenue Retention）が100%を超えている状態は何を意味する？", opts: ["既存顧客だけで売上が成長している", "新規獲得が解約を上回っている", "全顧客の満足度が100%", "解約率がゼロ"], ans: 0, exp: "NRR > 100% は、既存顧客のアップセル・エクスパンションが解約による減収を上回っている理想的な状態。" },
-
-  // ===== 解約・定着 =====
-  { cat: "解約・定着", q: "月次チャーン率が1%の場合、年間で約何%の顧客を失う？", opts: ["約6%", "約12%", "約1%", "約24%"], ans: 1, exp: "月次1%のチャーンは、1年（12ヶ月）で累積すると約12%の顧客を失う計算になる。SaaSにとってチャーンは最大の敵。" },
-  { cat: "解約・定着", q: "「アダプション」とは？", opts: ["顧客がサービスを実際に活用している状態", "新規顧客への導入支援", "解約率を下げる施策", "顧客満足度の調査"], ans: 0, exp: "アダプション = Adoption。「契約した」と「使ってる」は別。使ってもらう仕組みが大事。" },
-
-  // ===== 営業プロセス =====
-  { cat: "営業プロセス", q: "うちのセールスファネルの正しい順序は？", opts: ["リード → MQL → SAL → SQL", "リード → SQL → MQL → SAL", "リード → SAL → MQL → SQL", "リード → MQL → SQL → SAL"], ans: 0, exp: "うちの流れ：リード → MQL（マーケ判定）→ SAL（IS受入）→ SQL（IS判定→FSへ）。" },
-  { cat: "営業プロセス", q: "「墓場」とは社内で何を指す？", opts: ["ナーチャリング対象のハウスリード", "解約した顧客リスト", "使われなくなったツール", "不採用になった企画"], ans: 0, exp: "墓場 = ハウスリード（社内用語）。一度断られた/不通でナーチャリングに回ったリードの総称。墓場 ≠ 死んだリード。状況は変わる前提で継続フォロー。" },
-  { cat: "営業プロセス", q: "墓場のリードに再度アプローチしてSALを獲得することを何と呼ぶ？", opts: ["掘り起こし", "新着", "MQL戻し", "リサイクル"], ans: 0, exp: "掘り起こし = 墓場から復活してSALを獲得すること。人事異動・予算確定などの状況変化がトリガーになる。" },
-
-  // ===== ツール =====
-  { cat: "ツール・システム", q: "CRM / SFA / MA の中で、顧客との関係全体を管理するのはどれ？", opts: ["CRM", "SFA", "MA", "全部同じ"], ans: 0, exp: "CRM = 顧客関係管理（全領域）、SFA = 営業支援（営業領域）、MA = マーケ自動化（マーケ領域）。うちはZohoを使用。" },
-  { cat: "ツール・システム", q: "SDR と BDR の違いは？", opts: ["SDR=インバウンド対応、BDR=アウトバウンド開拓", "SDR=アウトバウンド、BDR=インバウンド", "SDR=FS担当、BDR=IS担当", "違いはない"], ans: 0, exp: "SDR = Sales Development Representative（インバウンド）、BDR = Business Development Representative（アウトバウンド）。" },
-
-  // ===== 売上拡大 =====
-  { cat: "売上拡大", q: "LTV / CAC の比率は、一般に何倍以上が健全とされる？", opts: ["3倍以上", "1倍以上", "5倍以上", "10倍以上"], ans: 0, exp: "ユニットエコノミクス: LTV/CAC ≧ 3x が健全の目安。顧客獲得コスト（CAC）の3倍以上の生涯価値（LTV）が必要。" },
-  { cat: "売上拡大", q: "既存顧客に上位プランを提案して単価を上げることを何と呼ぶ？", opts: ["アップセル", "クロスセル", "エクスパンション", "リテンション"], ans: 0, exp: "アップセル = 上位プラン提案（Free→Pro→Enterprise）。クロスセル = 別製品の追加提案。エクスパンション = 部署・ライセンス追加。" },
-
-  // ===== BANT =====
-  { cat: "BANT", q: "BANT の「T」は何を確認する？", opts: ["Timeframe（導入時期）", "Technology（技術要件）", "Target（対象範囲）", "Trial（トライアル）"], ans: 0, exp: "BANT: Budget（予算）、Authority（決裁権）、Needs（ニーズ）、Timeframe（導入時期）。" },
-
-  // ===== ナレッジマネジメント =====
-  { cat: "ナレッジマネジメント", q: "「暗黙知」を「形式知」にするとは、具体的にどういうこと？", opts: ["ベテランの頭の中のノウハウを文書・マニュアルにすること", "マニュアルを暗記すること", "チャットの情報をファイルサーバーに移すこと", "紙の資料をスキャンすること"], ans: 0, exp: "暗黙知（個人の経験・勘）→ 形式知（文書化された知識）にすることがナレッジマネジメントの目的。ナレカンの直球ど真ん中の価値。" },
-
-
-  // ===== 顧客セグメント =====
-  { cat: "顧客セグメント", q: "「ミッドマーケット（MM）」の一般的な企業規模は？", opts: ["従業員300〜1000名程度", "従業員50〜100名程度", "従業員1000名以上", "従業員10名以下"], ans: 0, exp: "SMB=〜300名、MM=300〜1000名、エンタープライズ=1000名以上。セグメントによってアプローチが変わる。" },
-
-  // ===== 競合 =====
-  { cat: "競合", q: "「チャットで情報が流れる」という課題を持つお客さんに、ナレカンの価値をどう伝える？", opts: ["フロー情報ではなくストック情報の場所を作れる", "チャットより高速に通信できる", "チャットのログを自動バックアップできる", "チャットの代わりにメールに戻すべき"], ans: 0, exp: "チャットはフロー（流れる情報）。ナレカンはストック（蓄積する情報）の場所を提供する。" },
-
-  // ===== AI・検索 =====
-  { cat: "AI・検索", q: "セマンティック検索とキーワード検索の違いは？", opts: ["意味を理解して検索するか、単語一致で検索するか", "有料か無料かの違い", "社内用か社外用かの違い", "検索速度の違い"], ans: 0, exp: "キーワード検索=「出張」→「出張」を含む文書だけ。セマンティック検索=「出張」→「海外渡航」「旅費精算」もヒット。ナレカンのAI検索はこれに近い。" },
-  { cat: "AI・検索", q: "「ハルシネーション」とは？", opts: ["AIが事実と異なる情報をもっともらしく生成すること", "AIの処理速度が遅くなること", "AIがユーザーの質問を理解できないこと", "AIが同じ回答を繰り返すこと"], ans: 0, exp: "ハルシネーション = AIが嘘をもっともらしく語ること。生成AI系の競合に対するナレカンの差別化ポイント（検索特化でチューニング済み）。" },
-];
-
-let currentQ = 0;
-let score = 0;
-let answered = false;
-let results = [];
-
-function startQuiz() {
-  // シャッフル
-  for (let i = questions.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [questions[i], questions[j]] = [questions[j], questions[i]];
-  }
-  currentQ = 0; score = 0; results = [];
-  document.getElementById('start').classList.add('hidden');
-  document.getElementById('quiz').classList.remove('hidden');
-  showQuestion();
-}
-
-function showQuestion() {
-  answered = false;
-  const q = questions[currentQ];
-  const total = questions.length;
-  document.getElementById('prog-text').textContent = `${currentQ + 1} / ${total}`;
-  document.getElementById('prog-fill').style.width = `${((currentQ) / total) * 100}%`;
-  document.getElementById('next-btn').classList.add('hidden');
-
-  const labels = ['A', 'B', 'C', 'D'];
-  let html = `<div class="question-card">
-    <span class="q-category">${q.cat}</span>
-    <div class="q-number">第${currentQ + 1}問</div>
-    <div class="q-text">${q.q}</div>
-    <div class="options" id="options">`;
-  q.opts.forEach((opt, i) => {
-    html += `<div class="option" onclick="selectOption(${i})" id="opt-${i}">
-      <span class="option-label">${labels[i]}</span>
-      <span>${opt}</span>
-    </div>`;
-  });
-  html += `</div><div id="exp-area"></div></div>`;
-  document.getElementById('q-area').innerHTML = html;
-}
-
-function selectOption(idx) {
-  if (answered) return;
-  answered = true;
-  const q = questions[currentQ];
-  const correct = q.ans === idx;
-  if (correct) score++;
-  results.push({ q: q.q, cat: q.cat, correct, correctAns: q.opts[q.ans], userAns: q.opts[idx] });
-
-  // 全選択肢を無効化
-  q.opts.forEach((_, i) => {
-    const el = document.getElementById(`opt-${i}`);
-    el.classList.add('disabled');
-    if (i === q.ans) el.classList.add('correct');
-    if (i === idx && !correct) el.classList.add('wrong');
-  });
-
-  // 解説
-  const expClass = correct ? 'correct-exp' : 'wrong-exp';
-  const icon = correct ? '⭕' : '❌';
-  document.getElementById('exp-area').innerHTML = `<div class="explanation ${expClass}">${icon} ${q.exp}</div>`;
-
-  document.getElementById('next-btn').classList.remove('hidden');
-  document.getElementById('next-btn').textContent = currentQ < questions.length - 1 ? '次の問題 →' : '結果を見る 🎉';
-}
-
-function nextQuestion() {
-  currentQ++;
-  if (currentQ >= questions.length) {
-    showResult();
-  } else {
-    showQuestion();
-  }
-}
-
-function showResult() {
-  document.getElementById('quiz').classList.add('hidden');
-  const el = document.getElementById('result');
-  el.classList.remove('hidden');
-
-  const total = questions.length;
-  const pct = Math.round((score / total) * 100);
-  let grade, gradeClass, msg, sub;
-  if (pct >= 90) { grade = '🎉'; gradeClass = 'great'; msg = '素晴らしい！'; sub = 'SaaSの基礎はバッチリ。自信を持って架電に臨もう！'; }
-  else if (pct >= 70) { grade = '👍'; gradeClass = 'good'; msg = 'いい感じ！'; sub = 'もう少しで完璧。間違えたところを復習しよう。'; }
-  else { grade = '📚'; gradeClass = 'retry'; msg = 'もう一度復習しよう'; sub = '用語集を読み返して、再チャレンジ！'; }
-
-  // カテゴリ別集計
-  const cats = {};
-  results.forEach(r => {
-    if (!cats[r.cat]) cats[r.cat] = { correct: 0, total: 0 };
-    cats[r.cat].total++;
-    if (r.correct) cats[r.cat].correct++;
-  });
-
-  let catHtml = '';
-  Object.entries(cats).forEach(([name, data]) => {
-    const catPct = Math.round((data.correct / data.total) * 100);
-    const color = catPct >= 80 ? 'var(--green)' : catPct >= 50 ? 'var(--accent)' : 'var(--red)';
-    catHtml += `<div class="cat-row">
-      <span class="cat-name">${name}</span>
-      <span class="cat-score">${data.correct}/${data.total}</span>
-      <div class="cat-bar"><div class="cat-fill" style="width:${catPct}%;background:${color};"></div></div>
-    </div>`;
-  });
-
-  // 間違えた問題
-  const wrongs = results.filter(r => !r.correct);
-  let wrongHtml = '';
-  if (wrongs.length > 0) {
-    wrongHtml = `<div class="wrong-list"><h3>❌ 間違えた問題（${wrongs.length}問）</h3>`;
-    wrongs.forEach(w => {
-      wrongHtml += `<div class="wrong-item">
-        <div class="wi-q">Q. ${w.q}</div>
-        <div class="wi-a">→ 正解: ${w.correctAns}</div>
-      </div>`;
-    });
-    wrongHtml += `</div>`;
-  }
-
-  el.innerHTML = `
-    <div class="score-circle ${gradeClass}">
-      <div class="score-num">${score}</div>
-      <div class="score-den">/ ${total}問正解（${pct}%）</div>
-    </div>
-    <div class="result-msg">${grade} ${msg}</div>
-    <div class="result-sub">${sub}</div>
-    <div class="category-scores">${catHtml}</div>
-    ${wrongHtml}
-    <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;">
-      <button class="btn" onclick="location.reload()">もう一度挑戦する</button>
-    </div>
-  `;
-}
-</script>
 
 </body>
 </html>

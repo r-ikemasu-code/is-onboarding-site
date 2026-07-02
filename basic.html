@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IS オンボーディング 知識チェック【基礎編】</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #005b64;
+  --primary-light: #00838f;
+  --accent: #f9a825;
+  --bg: #f4f6fb;
+  --card: #fff;
+  --text: #1a1a2e;
+  --text-light: #666;
+  --border: #e0e4ee;
+  --green: #10b981;
+  --green-bg: #ecfdf5;
+  --red: #ef4444;
+  --red-bg: #fef2f2;
+  --blue-bg: #eff6ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ===== ヘッダー ===== */
+.header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  padding: 36px 24px;
+  text-align: center;
+}
+.header h1 { font-size: 26px; font-weight: 900; letter-spacing: 1px; }
+.header p { font-size: 13px; opacity: 0.8; margin-top: 6px; }
+
+/* ===== コンテナ ===== */
+.container { max-width: 740px; margin: 0 auto; padding: 24px 16px 60px; }
+
+/* ===== スタート画面 ===== */
+.start-screen { text-align: center; padding: 40px 0; }
+.start-screen h2 { font-size: 20px; margin-bottom: 12px; }
+.start-screen p { color: var(--text-light); font-size: 14px; margin-bottom: 8px; }
+.start-screen .sections {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin: 20px 0 28px;
+}
+.start-screen .section-tag {
+  background: var(--blue-bg); color: var(--primary);
+  font-size: 12px; font-weight: 700;
+  padding: 4px 14px; border-radius: 99px;
+}
+
+/* ===== ボタン ===== */
+.btn {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  font-size: 16px; font-weight: 700;
+  padding: 14px 48px;
+  border: none; border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(0,91,100,0.25);
+  text-decoration: none;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,91,100,0.3); }
+.btn:active { transform: translateY(0); }
+.btn.secondary {
+  background: #fff; color: var(--primary);
+  border: 2px solid var(--primary);
+  box-shadow: none;
+}
+.btn.secondary:hover { background: var(--blue-bg); }
+
+/* ===== プログレスバー ===== */
+.progress-bar {
+  background: var(--border);
+  border-radius: 99px;
+  height: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+.progress-text {
+  font-size: 12px; color: var(--text-light);
+  margin-bottom: 6px; font-weight: 600;
+}
+
+/* ===== 問題カード ===== */
+.question-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+.q-category {
+  font-size: 11px; font-weight: 700;
+  color: var(--primary); background: var(--blue-bg);
+  padding: 3px 12px; border-radius: 6px;
+  display: inline-block; margin-bottom: 12px;
+}
+.q-number { font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
+.q-text { font-size: 17px; font-weight: 700; margin-bottom: 20px; line-height: 1.6; }
+
+/* ===== 選択肢 ===== */
+.options { display: flex; flex-direction: column; gap: 10px; }
+.option {
+  padding: 14px 18px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s;
+  display: flex; align-items: center; gap: 12px;
+}
+.option:hover { border-color: var(--primary); background: rgba(0,91,100,0.03); }
+.option .option-label {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--text-light);
+  flex-shrink: 0;
+}
+.option.selected { border-color: var(--primary); background: rgba(0,91,100,0.05); }
+.option.selected .option-label { background: var(--primary); color: #fff; }
+.option.correct { border-color: var(--green); background: var(--green-bg); }
+.option.correct .option-label { background: var(--green); color: #fff; }
+.option.wrong { border-color: var(--red); background: var(--red-bg); }
+.option.wrong .option-label { background: var(--red); color: #fff; }
+.option.disabled { pointer-events: none; }
+
+/* ===== 解説 ===== */
+.explanation {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  animation: fadeIn 0.3s ease;
+}
+.explanation.correct-exp { background: var(--green-bg); color: #065f46; border-left: 4px solid var(--green); }
+.explanation.wrong-exp { background: var(--red-bg); color: #991b1b; border-left: 4px solid var(--red); }
+
+/* ===== ナビ ===== */
+.nav { display: flex; justify-content: flex-end; margin-top: 20px; }
+
+/* ===== 結果画面 ===== */
+.result-screen { text-align: center; }
+.score-circle {
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  margin: 20px auto;
+  font-weight: 900;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.score-circle .score-num { font-size: 48px; line-height: 1; }
+.score-circle .score-den { font-size: 14px; opacity: 0.7; }
+.score-circle.great { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; }
+.score-circle.good { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
+.score-circle.retry { background: linear-gradient(135deg, #fecaca, #fca5a5); color: #991b1b; }
+
+.result-msg { font-size: 18px; font-weight: 700; margin: 16px 0 8px; }
+.result-sub { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+
+.category-scores {
+  display: flex; flex-direction: column; gap: 8px;
+  margin: 20px 0 28px; text-align: left;
+}
+.cat-row {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; padding: 8px 14px;
+  background: var(--card); border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.cat-row .cat-name { flex: 1; font-weight: 600; }
+.cat-row .cat-score { font-weight: 700; }
+.cat-row .cat-bar { width: 100px; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.cat-row .cat-fill { height: 100%; border-radius: 99px; }
+
+.wrong-list {
+  text-align: left; margin: 20px 0;
+  background: var(--card); border-radius: 12px;
+  padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.wrong-list h3 { font-size: 15px; margin-bottom: 12px; color: var(--red); }
+.wrong-item {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.wrong-item:last-child { border-bottom: none; }
+.wrong-item .wi-q { font-weight: 700; margin-bottom: 2px; }
+.wrong-item .wi-a { color: var(--green); }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📝 IS オンボーディング 知識チェック【基礎編】</h1>
+  <p>SaaS基礎 ・ 営業プロセス ・ フレームワーク</p>
+</div>
+
+<div class="container">
+  <!-- ===== スタート ===== -->
+  <div id="start" class="start-screen">
+    <h2>全35問・選択式</h2>
+    <p>用語集とオンボーディング計画の内容から出題します</p>
+    <div class="sections">
+      <span class="section-tag">SaaS KPI</span>
+      <span class="section-tag">解約・定着</span>
+      <span class="section-tag">ビジネスモデル</span>
+      <span class="section-tag">営業プロセス</span>
+      <span class="section-tag">ツール</span>
+      <span class="section-tag">売上拡大</span>
+      <span class="section-tag">BANT</span>
+      <span class="section-tag">組織・役割</span>
+      <span class="section-tag">ナレッジマネジメント</span>
+      <span class="section-tag">その他基礎</span>
+    </div>
+    <p style="font-size:13px;color:#999;">目安時間：10〜15分</p>
+    <br>
+    <button class="btn" onclick="startQuiz()">テストを始める</button>
+  </div>
+
+  <!-- ===== 問題 ===== -->
+  <div id="quiz" class="hidden">
+    <div class="progress-text"><span id="prog-text"></span></div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
+    <div id="q-area"></div>
+    <div class="nav">
+      <button class="btn" id="next-btn" class="hidden" onclick="nextQuestion()">次の問題 →</button>
+    </div>
+  </div>
+
+  <!-- ===== 結果 ===== -->
+  <div id="result" class="result-screen hidden"></div>
+</div>
+
+<script>
+const questions = [
+  // ===== SaaS KPI（7問） =====
+  { cat: "SaaS KPI", q: "MRRとは何の略？", opts: ["Monthly Recurring Revenue", "Monthly Revenue Rate", "Marketing Return Revenue", "Maximum Retention Rate"], ans: 0, exp: "MRR = Monthly Recurring Revenue（月次経常収益）。SaaSの最重要指標。" },
+  { cat: "SaaS KPI", q: "ARRの計算方法は？", opts: ["MRR × 12", "MRR × 6", "月間売上 × 365", "年間新規契約数 × 単価"], ans: 0, exp: "ARR = MRR × 12。年次経常収益。" },
+  { cat: "SaaS KPI", q: "ARPAの正しい読み方は？", opts: ["アーパ", "アルパ", "エーアールピーエー", "アルファ"], ans: 0, exp: "ARPA = Average Revenue Per Account（アーパ）。1アカウントあたりの平均売上。" },
+  { cat: "SaaS KPI", q: "ARPUの正しい読み方は？", opts: ["アープ", "アルプ", "エーアーピーユー", "アプ"], ans: 0, exp: "ARPU = Average Revenue Per User（アープ）。1ユーザーあたりの平均売上。ARPAと似ているがユーザー単位。" },
+  { cat: "SaaS KPI", q: "NRRが100%を超えている状態は何を意味する？", opts: ["既存顧客だけで売上が成長している", "新規獲得が解約を上回っている", "全顧客の満足度が100%", "解約率がゼロ"], ans: 0, exp: "NRR > 100% = 既存顧客のアップセル・エクスパンションが解約による減収を上回る理想的な状態。" },
+  { cat: "SaaS KPI", q: "GRR（Gross Revenue Retention）がNRRと違う点は？", opts: ["アップセルを含まない純粋な解約インパクトだけ見る", "新規顧客も含めて見る", "月次ではなく年次で見る", "全く同じ指標"], ans: 0, exp: "GRR = 解約の影響だけを見る総売上継続率。アップセルを含まないので必ず100%以下。" },
+  { cat: "SaaS KPI", q: "North Star Metricとは？", opts: ["プロダクトの核心的価値を表す単一の指標", "北極星の観測データ", "最も売上が高い顧客", "CEOが設定する年間目標"], ans: 0, exp: "North Star Metric = 北極星指標。プロダクトの核心的価値を最もよく表す指標で、全チームがこれを追いかける。" },
+
+  // ===== 解約・定着（4問） =====
+  { cat: "解約・定着", q: "月次チャーン率が1%の場合、年間で約何%の顧客を失う？", opts: ["約12%", "約6%", "約1%", "約24%"], ans: 0, exp: "月次1%のチャーンは年間約12%。SaaSにとってチャーンは最大の敵。" },
+  { cat: "解約・定着", q: "アダプションとは？", opts: ["顧客がサービスを実際に活用している状態", "新規顧客への導入支援", "解約率を下げる施策", "顧客満足度の調査"], ans: 0, exp: "アダプション = Adoption。「契約した」と「使ってる」は別。" },
+  { cat: "解約・定着", q: "オンボーディングとは？", opts: ["新規顧客がサービスを使い始める際の導入支援", "解約防止のための値引き", "既存顧客へのアップセル", "競合分析"], ans: 0, exp: "オンボーディング = 導入支援。最初の体験が悪いと即チャーンするので最重要。" },
+  { cat: "解約・定着", q: "ヘルススコアとは？", opts: ["顧客の利用状況や満足度を数値化したもの", "従業員の健康診断結果", "売上達成率", "競合との比較スコア"], ans: 0, exp: "ヘルススコア = 顧客の利用状況・満足度を数値化。チャーンの予兆を掴むために使う。" },
+
+  // ===== ビジネスモデル（3問） =====
+  { cat: "ビジネスモデル", q: "SaaSとは？", opts: ["クラウド上で提供されるソフトウェア", "PCにインストールするソフト", "ハードウェアの種類", "ネットワーク機器の名前"], ans: 0, exp: "SaaS = Software as a Service。インストール不要で月額/年額課金。" },
+  { cat: "ビジネスモデル", q: "PLG（Product-Led Growth）とは？", opts: ["プロダクト自体が成長ドライバーとなるモデル", "営業主導の成長モデル", "広告主導の成長モデル", "パートナー主導の成長モデル"], ans: 0, exp: "PLG = Product-Led Growth。Notion等が代表例。対義語はSLG（Sales-Led Growth）で、ISが関わるのは主にSLG。" },
+  { cat: "ビジネスモデル", q: "フリーミアムモデルの代表例は？", opts: ["Slack・Zoom（基本無料、上位有料）", "ナレカン", "Salesforce", "Oracle"], ans: 0, exp: "フリーミアム = 基本機能は無料、上位機能は有料。SlackやZoomが代表例。" },
+
+  // ===== 営業プロセス（5問） =====
+  { cat: "営業プロセス", q: "うちのセールスファネルの正しい順序は？", opts: ["リード → MQL → SAL → SQL", "リード → SQL → MQL → SAL", "リード → SAL → MQL → SQL", "リード → MQL → SQL → SAL"], ans: 0, exp: "うちの流れ：リード → MQL（マーケ判定）→ SAL（IS受入）→ SQL（IS判定→FSへ）。" },
+  { cat: "営業プロセス", q: "「墓場」とは社内で何を指す？", opts: ["ナーチャリング対象のハウスリード", "解約した顧客リスト", "使われなくなったツール", "不採用になった企画"], ans: 0, exp: "墓場 = 一度断られた/不通でナーチャリングに回ったリードの総称。状況は変わる前提で継続フォロー。" },
+  { cat: "営業プロセス", q: "墓場のリードに再度アプローチしてSALを獲得することを何と呼ぶ？", opts: ["掘り起こし", "新着", "MQL戻し", "リサイクル"], ans: 0, exp: "掘り起こし = 墓場から復活してSALを獲得。人事異動・予算確定等の状況変化がトリガー。" },
+  { cat: "営業プロセス", q: "ナーチャリングとは？", opts: ["まだ商談化しないリードをメルマガ等で育成すること", "解約防止施策", "新規リード獲得", "値引き交渉"], ans: 0, exp: "ナーチャリング = Nurturing（育成）。メルマガやコンテンツ配信で温める。" },
+  { cat: "営業プロセス", q: "「パイプラインどう？」と聞かれたら何を答える？", opts: ["進行中の商談の進み具合", "サーバーの稼働状況", "採用計画", "メールの配信状況"], ans: 0, exp: "パイプライン = 進行中の商談の一覧・全体像。" },
+
+  // ===== ツール（2問） =====
+  { cat: "ツール", q: "CRM / SFA / MA の中で、顧客との関係全体を管理するのは？", opts: ["CRM", "SFA", "MA", "全部同じ"], ans: 0, exp: "CRM = 顧客関係管理（全領域）、SFA = 営業支援、MA = マーケ自動化。うちはZohoを使用。" },
+  { cat: "ツール", q: "SDR と BDR の違いは？", opts: ["SDR=インバウンド対応、BDR=アウトバウンド開拓", "SDR=アウトバウンド、BDR=インバウンド", "SDR=FS担当、BDR=IS担当", "違いはない"], ans: 0, exp: "SDR = インバウンド、BDR = アウトバウンド。" },
+
+  // ===== 売上拡大（4問） =====
+  { cat: "売上拡大", q: "LTV / CAC の比率は一般に何倍以上が健全？", opts: ["3倍以上", "1倍以上", "5倍以上", "10倍以上"], ans: 0, exp: "ユニットエコノミクス: LTV/CAC ≧ 3x が目安。" },
+  { cat: "売上拡大", q: "既存顧客に上位プランを提案して単価を上げることを何と呼ぶ？", opts: ["アップセル", "クロスセル", "エクスパンション", "リテンション"], ans: 0, exp: "アップセル = 上位プラン提案。クロスセル = 別製品追加。エクスパンション = 部署・ライセンス追加。" },
+  { cat: "売上拡大", q: "CAC（キャック）とは？", opts: ["顧客獲得コスト（1顧客獲得にかかった費用）", "顧客生涯価値", "月次売上", "解約率"], ans: 0, exp: "CAC = Customer Acquisition Cost（キャック）。顧客獲得コスト。LTV > CAC がビジネス持続の条件。" },
+  { cat: "売上拡大", q: "CAC Payback Period の目安は？", opts: ["12ヶ月以内", "6ヶ月以内", "24ヶ月以内", "36ヶ月以内"], ans: 0, exp: "CAC Payback Period = CACを回収するまでの期間。12ヶ月以内が目安。" },
+
+  // ===== BANT（1問） =====
+  { cat: "BANT", q: "BANT の「T」は何を確認する？", opts: ["Timeframe（導入時期）", "Technology（技術要件）", "Target（対象範囲）", "Trial（トライアル）"], ans: 0, exp: "BANT: Budget（予算）、Authority（決裁権）、Needs（ニーズ）、Timeframe（導入時期）。" },
+
+  // ===== 組織・役割（1問） =====
+  { cat: "組織・役割", q: "SaaSの分業体制 The Model の正しい流れは？", opts: ["マーケ→IS→FS→CS", "IS→マーケ→CS→FS", "FS→IS→CS→マーケ", "CS→FS→IS→マーケ"], ans: 0, exp: "The Model: マーケ（リード生成）→ IS（クオリファイ）→ FS（クローズ）→ CS（定着・拡大）。" },
+
+  // ===== ナレッジマネジメント（2問） =====
+  { cat: "ナレッジマネジメント", q: "「暗黙知」を「形式知」にするとは？", opts: ["ベテランのノウハウを文書・マニュアルにすること", "マニュアルを暗記すること", "チャットの情報をファイルサーバーに移すこと", "紙の資料をスキャンすること"], ans: 0, exp: "暗黙知（個人の経験・勘）→ 形式知（文書化された知識）にすることがナレッジマネジメントの目的。" },
+  { cat: "ナレッジマネジメント", q: "「ナレッジの属人化」とは？", opts: ["特定の人しか知らない状態", "全員が同じ情報を持っている状態", "情報が整理されている状態", "AIが情報を管理している状態"], ans: 0, exp: "属人化 = 特定の人しか知らない状態。お客さんが最も痛みを感じているポイント。ナレカンの訴求ポイント。" },
+
+  // ===== その他基礎（6問） =====
+  { cat: "その他基礎", q: "PoCの社内での正しい読み方は？", opts: ["ピーオーシー（商談先ではポックと呼ぶ人もいる）", "ポック（これが唯一の正解）", "ピーオーエス", "パック"], ans: 0, exp: "PoC = Proof of Concept。社内ではピーオーシー。商談先でポックと呼ぶ人もいるので覚えておこう。" },
+  { cat: "その他基礎", q: "ROIとは？", opts: ["投資対効果（Return on Investment）", "売上高", "顧客満足度", "市場シェア"], ans: 0, exp: "ROI = Return on Investment。投じた費用に対してどれだけのリターンがあったか。" },
+  { cat: "その他基礎", q: "ICPとは？", opts: ["Ideal Customer Profile（理想的な顧客像）", "Internet Connection Point", "Initial Cost Plan", "Internal Communication Platform"], ans: 0, exp: "ICP = Ideal Customer Profile。自社プロダクトに最もフィットする理想的な顧客像。" },
+  { cat: "その他基礎", q: "CTAとは？", opts: ["Call To Action。行動喚起ボタン", "顧客ターゲット分析", "コスト対効果分析", "クラウド技術アーキテクチャ"], ans: 0, exp: "CTA = Call To Action。『資料請求はこちら』『無料トライアル開始』などの行動喚起。" },
+  { cat: "その他基礎", q: "ホワイトペーパーの主な用途は？", opts: ["課題解決ノウハウをまとめてリード獲得に使う", "社内の議事録", "契約書のテンプレート", "株主向け報告書"], ans: 0, exp: "ホワイトペーパー = 課題解決ノウハウをまとめた資料。DL時に連絡先を取得してリード獲得に使う。" },
+  { cat: "その他基礎", q: "CVRとは？", opts: ["Conversion Rate。コンバージョン率", "Customer Value Rate", "Corporate Venture Return", "Cost Variable Ratio"], ans: 0, exp: "CVR = Conversion Rate。サイト訪問者やリードが実際にアクション（資料請求、申込等）を起こした割合。" },
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+let results = [];
+
+function startQuiz() {
+  // シャッフル
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+  currentQ = 0; score = 0; results = [];
+  document.getElementById('start').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  showQuestion();
+}
+
+function showQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  const total = questions.length;
+  document.getElementById('prog-text').textContent = `${currentQ + 1} / ${total}`;
+  document.getElementById('prog-fill').style.width = `${((currentQ) / total) * 100}%`;
+  document.getElementById('next-btn').classList.add('hidden');
+
+  const labels = ['A', 'B', 'C', 'D'];
+  let html = `<div class="question-card">
+    <span class="q-category">${q.cat}</span>
+    <div class="q-number">第${currentQ + 1}問</div>
+    <div class="q-text">${q.q}</div>
+    <div class="options" id="options">`;
+  q.opts.forEach((opt, i) => {
+    html += `<div class="option" onclick="selectOption(${i})" id="opt-${i}">
+      <span class="option-label">${labels[i]}</span>
+      <span>${opt}</span>
+    </div>`;
+  });
+  html += `</div><div id="exp-area"></div></div>`;
+  document.getElementById('q-area').innerHTML = html;
+}
+
+function selectOption(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const correct = q.ans === idx;
+  if (correct) score++;
+  results.push({ q: q.q, cat: q.cat, correct, correctAns: q.opts[q.ans], userAns: q.opts[idx] });
+
+  // 全選択肢を無効化
+  q.opts.forEach((_, i) => {
+    const el = document.getElementById(`opt-${i}`);
+    el.classList.add('disabled');
+    if (i === q.ans) el.classList.add('correct');
+    if (i === idx && !correct) el.classList.add('wrong');
+  });
+
+  // 解説
+  const expClass = correct ? 'correct-exp' : 'wrong-exp';
+  const icon = correct ? '⭕' : '❌';
+  document.getElementById('exp-area').innerHTML = `<div class="explanation ${expClass}">${icon} ${q.exp}</div>`;
+
+  document.getElementById('next-btn').classList.remove('hidden');
+  document.getElementById('next-btn').textContent = currentQ < questions.length - 1 ? '次の問題 →' : '結果を見る 🎉';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) {
+    showResult();
+  } else {
+    showQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById('quiz').classList.add('hidden');
+  const el = document.getElementById('result');
+  el.classList.remove('hidden');
+
+  const total = questions.length;
+  const pct = Math.round((score / total) * 100);
+  let grade, gradeClass, msg, sub;
+  if (pct >= 90) { grade = '🎉'; gradeClass = 'great'; msg = '素晴らしい！'; sub = 'SaaSの基礎はバッチリ。自信を持って架電に臨もう！'; }
+  else if (pct >= 70) { grade = '👍'; gradeClass = 'good'; msg = 'いい感じ！'; sub = 'もう少しで完璧。間違えたところを復習しよう。'; }
+  else { grade = '📚'; gradeClass = 'retry'; msg = 'もう一度復習しよう'; sub = '用語集を読み返して、再チャレンジ！'; }
+
+  // カテゴリ別集計
+  const cats = {};
+  results.forEach(r => {
+    if (!cats[r.cat]) cats[r.cat] = { correct: 0, total: 0 };
+    cats[r.cat].total++;
+    if (r.correct) cats[r.cat].correct++;
+  });
+
+  let catHtml = '';
+  Object.entries(cats).forEach(([name, data]) => {
+    const catPct = Math.round((data.correct / data.total) * 100);
+    const color = catPct >= 80 ? 'var(--green)' : catPct >= 50 ? 'var(--accent)' : 'var(--red)';
+    catHtml += `<div class="cat-row">
+      <span class="cat-name">${name}</span>
+      <span class="cat-score">${data.correct}/${data.total}</span>
+      <div class="cat-bar"><div class="cat-fill" style="width:${catPct}%;background:${color};"></div></div>
+    </div>`;
+  });
+
+  // 間違えた問題
+  const wrongs = results.filter(r => !r.correct);
+  let wrongHtml = '';
+  if (wrongs.length > 0) {
+    wrongHtml = `<div class="wrong-list"><h3>❌ 間違えた問題（${wrongs.length}問）</h3>`;
+    wrongs.forEach(w => {
+      wrongHtml += `<div class="wrong-item">
+        <div class="wi-q">Q. ${w.q}</div>
+        <div class="wi-a">→ 正解: ${w.correctAns}</div>
+      </div>`;
+    });
+    wrongHtml += `</div>`;
+  }
+
+  el.innerHTML = `
+    <div class="score-circle ${gradeClass}">
+      <div class="score-num">${score}</div>
+      <div class="score-den">/ ${total}問正解（${pct}%）</div>
+    </div>
+    <div class="result-msg">${grade} ${msg}</div>
+    <div class="result-sub">${sub}</div>
+    <div class="category-scores">${catHtml}</div>
+    ${wrongHtml}
+    <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn" onclick="location.reload()">もう一度挑戦する</button>
+      <a href="advanced.html" class="btn secondary">応用編へ →</a>
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
